@@ -1,170 +1,162 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b1220">
-<title>MK TradingView Pro | India Stocks & MCX</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MK TradingView Pro — Market Terminal</title>
+<meta name="description" content="MK TradingView Pro market terminal for Indian stocks, indices, MCX and Forex Gold.">
 <style>
-:root{--bg:#080d18;--panel:#101827;--panel2:#151f31;--line:#26344a;--text:#e8eef8;--muted:#91a0b8;--green:#20c997;--red:#ff647c;--blue:#70a7ff;--yellow:#f5c451}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,Segoe UI,Arial,sans-serif}
-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 22px;border-bottom:1px solid var(--line);background:#0b1220;position:sticky;top:0;z-index:5}
-.brand{display:flex;align-items:center;gap:11px;font-size:18px;font-weight:800}.logo{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#20c997,#2878ff);color:#07111d;font-weight:900}
-.small{color:var(--muted);font-size:12px}.status{border:1px solid #235f51;color:#75e4c0;background:#102a29;padding:5px 9px;border-radius:20px;font-size:11px;white-space:nowrap}
-main{max-width:1550px;margin:auto;padding:19px}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:15px}.hero h1{margin:0 0 5px;font-size:25px}.hero p{margin:0;color:var(--muted)}
-.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.btn,select,input{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:9px 12px;border-radius:8px;font:inherit}.btn{cursor:pointer}.btn:hover,select:hover{border-color:var(--blue)}.btn.active{background:#173b48;border-color:#20c997;color:#b9ffe9}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 325px;gap:15px}.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;overflow:hidden;margin-bottom:15px}.cardhead{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid var(--line)}.cardhead h2{font-size:14px;margin:0}.chart{height:590px;background:#0b1220}.chart iframe{width:100%;height:100%;border:0}.side{display:flex;flex-direction:column;gap:0}.pad{padding:14px}.assetlist{max-height:360px;overflow:auto}.asset{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #202c3e;gap:8px}.asset:last-child{border-bottom:0}.asset button{background:transparent;border:0;color:var(--text);cursor:pointer;text-align:left;font-weight:700;padding:0}.tag{font-size:11px;color:var(--muted);display:block;font-weight:400}.badge{font-size:10px;padding:3px 6px;border-radius:5px;background:#1b2940;color:#a9c4ed}
-.widget{min-height:370px;background:#0b1220}.widget iframe{width:100%;border:0}.tvnote{padding:10px 14px;color:var(--muted);font-size:11px;border-top:1px solid var(--line)}
-.signalbox{border:1px dashed #34445e;border-radius:10px;padding:13px;background:#0b1423}.signal{font-size:19px;font-weight:800;margin:2px 0 6px;color:var(--yellow)}.signal-actions{display:flex;gap:8px;margin-top:12px}.signal-actions button{flex:1}.buy{background:#123d35;border-color:#1c8b70}.sell{background:#401c2a;border-color:#a43d57}.alertrow{padding:9px 0;border-bottom:1px solid #202c3e}.alerttitle{font-weight:700}.alerttime{font-size:11px;color:var(--muted)}
-.disclaimer{margin-top:8px;padding:13px 15px;border-radius:10px;background:#211d12;border:1px solid #5c4b24;color:#e7d49a;font-size:12px}
-footer{padding:20px;text-align:center;color:var(--muted);font-size:12px}
-@media(max-width:1000px){.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.chart{height:510px}.side .card{margin-bottom:0}}
-@media(max-width:650px){header{padding:12px 14px}main{padding:12px}.hero{display:block}.hero h1{font-size:22px}.side{display:flex;flex-direction:column}.chart{height:430px}}
+:root{--bg:#0b0e14;--panel:#111722;--panel2:#151d2a;--line:#263142;--text:#e7edf7;--muted:#8d9bb0;--green:#20c997;--red:#ff5c70;--blue:#579dff;--yellow:#f4c95d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.4 Inter,Segoe UI,Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}
+.topbar{height:58px;display:flex;align-items:center;gap:14px;padding:0 16px;border-bottom:1px solid var(--line);background:#0e131c;position:sticky;top:0;z-index:5}
+.logo{font-size:17px;font-weight:800;letter-spacing:.2px;white-space:nowrap}.logo span{color:var(--green)}
+.pill{font-size:11px;border:1px solid #235e50;color:#7de7c5;padding:3px 7px;border-radius:20px}
+.search{display:flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:7px 10px;max-width:420px;flex:1}.search input{background:transparent;border:0;outline:0;color:var(--text);width:100%;min-width:80px}
+.top-actions{margin-left:auto;display:flex;gap:8px;align-items:center}.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:8px 11px;border-radius:7px}.btn:hover,.btn.active{border-color:var(--blue);background:#17283f}.btn.primary{background:var(--blue);color:#08101d;border-color:var(--blue);font-weight:700}
+.layout{display:grid;grid-template-columns:235px minmax(0,1fr) 275px;min-height:calc(100vh - 58px)}
+.sidebar,.rightbar{background:#0e131c;min-width:0}.sidebar{border-right:1px solid var(--line);padding:12px}.rightbar{border-left:1px solid var(--line);padding:12px}
+.section-title{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:1px;text-transform:uppercase;margin:10px 0}
+.market-tabs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}.market-tabs button{font-size:11px;padding:6px 8px}
+.symbol-list{display:flex;flex-direction:column;gap:3px}.symbol{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 8px;border-radius:7px;border:1px solid transparent;background:transparent;color:var(--text);text-align:left;width:100%}.symbol:hover,.symbol.selected{background:#172334;border-color:#263d58}.symbol .ticker{font-weight:700}.symbol .sub{display:block;font-size:11px;color:var(--muted);margin-top:2px}.symbol .kind{font-size:10px;color:var(--muted);text-align:right}
+main{padding:12px;min-width:0}.headline{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}.current-name{font-size:20px;font-weight:800}.current-code{color:var(--muted);font-size:12px}.market-status{margin-left:auto;color:var(--muted);font-size:11px}.notice{border:1px solid #554727;background:#282316;color:#e6d5a4;border-radius:8px;padding:9px 11px;font-size:12px;margin-bottom:10px}
+.chart-shell{height:590px;min-height:390px;background:#0b0e14;border:1px solid var(--line);border-radius:10px;overflow:hidden;position:relative}.chart-shell .tradingview-widget-container,.chart-shell .tradingview-widget-container__widget{height:100%;width:100%}
+.toolrow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.toolrow .btn{font-size:12px;padding:6px 9px}.bottom-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.widget-panel{border:1px solid var(--line);background:var(--panel);border-radius:10px;overflow:hidden;min-height:330px}.panel-head{padding:11px 12px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-weight:750}.widget-body{height:300px;padding:5px}.widget-body .tradingview-widget-container,.widget-body .tradingview-widget-container__widget{height:100%;width:100%}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.stat{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px}.stat label{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.stat strong{font-size:15px}.green{color:var(--green)}.red{color:var(--red)}
+.alert-card{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:11px;margin:8px 0}.alert-card h4{margin:0 0 5px;font-size:13px}.alert-card p{margin:0;color:var(--muted);font-size:11px}
+.form-row{display:flex;gap:6px;margin:8px 0}.form-row input,.form-row select{min-width:0;width:100%;padding:8px;border:1px solid var(--line);background:#0b0e14;color:var(--text);border-radius:6px}
+.tiny{font-size:11px;color:var(--muted)}.foot{padding:14px 16px;border-top:1px solid var(--line);color:var(--muted);font-size:11px;display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between}
+.mobile-menu{display:none}
+@media(max-width:1150px){.layout{grid-template-columns:210px minmax(0,1fr)}.rightbar{display:none}.chart-shell{height:540px}}
+@media(max-width:760px){.topbar{height:auto;min-height:58px;flex-wrap:wrap;padding:10px}.logo{font-size:15px}.pill{display:none}.search{order:3;flex-basis:100%;max-width:none}.top-actions .hide-mobile{display:none}.layout{display:block}.sidebar{border-right:0;border-bottom:1px solid var(--line)}.sidebar .section-title{margin-top:2px}.symbol-list{display:grid;grid-template-columns:1fr 1fr}.symbol{padding:8px}.chart-shell{height:480px}.bottom-grid{grid-template-columns:1fr}main{padding:9px}.market-tabs{margin-bottom:8px}.market-status{margin-left:0}.current-name{font-size:18px}}
 </style>
 </head>
 <body>
-<header>
- <div class="brand"><div class="logo">MK</div><div>MK TradingView Pro<div class="small">India Stocks · Indices · MCX</div></div></div>
- <div class="status">● EMBEDDED MARKET DATA</div>
+<header class="topbar">
+  <div class="logo">MK <span>TradingView Pro</span></div><span class="pill">FREE TERMINAL</span>
+  <div class="search"><span>⌕</span><input id="symbolSearch" placeholder="Search symbol: RELIANCE, NIFTY, XAUUSD..." autocomplete="off"><button class="btn" id="searchBtn">Go</button></div>
+  <div class="top-actions"><button class="btn hide-mobile" id="watchToggle">☆ Watchlist</button><button class="btn primary" id="fullscreenBtn">Fullscreen chart</button></div>
 </header>
-<main>
- <section class="hero"><div><h1>Market Dashboard</h1><p>Indian stocks, major indices and MCX commodities in one place.</p></div><div class="small">Free starter · Powered by TradingView widgets</div></section>
- <div class="toolbar">
-  <button class="btn active" onclick="setCategory('all',this)">All</button>
-  <button class="btn" onclick="setCategory('stocks',this)">Indian Stocks</button>
-  <button class="btn" onclick="setCategory('indices',this)">Indices</button>
-  <button class="btn" onclick="setCategory('mcx',this)">MCX Commodities</button>
-  <label class="small" style="align-self:center;margin-left:5px" for="interval">Chart timeframe</label>
-  <select id="interval" onchange="state.interval=this.value;renderChart()"><option value="1">1m</option><option value="5" selected>5m</option><option value="15">15m</option><option value="30">30m</option><option value="60">1H</option><option value="240">4H</option><option value="D">1D</option><option value="W">1W</option></select>
-  <input id="search" placeholder="Search symbol or company..." oninput="renderWatchlist()" aria-label="Search symbols">
- </div>
- <div class="layout">
-  <section>
-   <div class="card">
-    <div class="cardhead"><h2 id="chartTitle">OANDA:XAUUSD · 5m</h2><span class="small">TradingView chart</span></div>
-    <div class="chart" id="chartContainer"></div>
-   </div>
-   <div class="card">
-    <div class="cardhead"><h2>Indian Stock Screener</h2><span class="badge">Market-wide scan</span></div>
-    <div class="widget" id="stockScreener"></div>
-    <div class="tvnote">Use the screener to explore more Indian-listed stocks. Quotes may be delayed depending on exchange/data permissions.</div>
-   </div>
-   <div class="card">
-    <div class="cardhead"><h2>MCX & Market Ticker</h2><span class="small">Selected instruments</span></div>
-    <div class="widget" id="tickerTape" style="min-height:100px"></div>
-   </div>
-  </section>
-  <aside class="side">
-   <section class="card">
-    <div class="cardhead"><h2>Market Watchlist</h2><span class="small" id="count">Symbols</span></div>
-    <div class="pad assetlist" id="watchlist"></div>
-    <div class="tvnote">Click a symbol to load its chart. Symbols may differ by provider; if one does not load, verify it on TradingView.</div>
-   </section>
-   <section class="card">
-    <div class="cardhead"><h2>Website Signal Panel</h2><span class="small">Demo only</span></div>
-    <div class="pad">
-     <div class="signalbox"><div class="small">Selected symbol</div><strong id="selectedName">Gold (XAUUSD)</strong><div id="signalValue" class="signal">WAIT / NO SIGNAL</div><div class="small" id="signalNote">Automatic signals are not connected in this starter.</div>
-      <div class="signal-actions"><button class="btn buy" onclick="manualSignal('BUY')">Test BUY</button><button class="btn sell" onclick="manualSignal('SELL')">Test SELL</button></div>
-     </div>
-     <p class="small">These buttons only test the website alert panel; they are not market signals.</p>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="section-title">Markets</div>
+    <div class="market-tabs">
+      <button class="btn active" data-market="all">All</button><button class="btn" data-market="india">India</button><button class="btn" data-market="mcx">MCX</button><button class="btn" data-market="forex">Forex</button>
     </div>
-   </section>
-   <section class="card">
-    <div class="cardhead"><h2>Website Alert Log</h2><button class="btn" style="padding:5px 8px" onclick="clearAlerts()">Clear</button></div>
-    <div class="pad" id="alertLog"><div class="small">No alerts yet.</div></div>
-   </section>
+    <div class="section-title">Watchlist <span id="watchCount"></span></div>
+    <div id="symbolList" class="symbol-list"></div>
+    <div class="tiny" style="margin-top:12px">Click a symbol to load its chart. Search supports TradingView symbol codes.</div>
   </aside>
- </div>
- <div class="disclaimer"><strong>Market-data notice:</strong> TradingView widgets may show delayed stock/futures data. Free embedded widgets do not guarantee real-time NSE/BSE/MCX quotes for every instrument. Exchange-authorized real-time data may require separate licensing/fees. The stock screener and chart are TradingView-hosted widgets; this website does not receive their prices as JavaScript data and cannot use them to calculate automatic signals. Not financial advice.</div>
-</main>
-<footer>MK TradingView Pro · Free static website · TradingView attribution and widget terms apply.</footer>
+  <main>
+    <div class="headline"><div><div class="current-name" id="currentName">NIFTY 50</div><div class="current-code" id="currentCode">NSE:NIFTY</div></div><div class="market-status">Chart data provided by TradingView widgets</div></div>
+    <div class="notice">Data availability and delay depend on the exchange and TradingView. This free website does not guarantee real-time NSE/MCX quotes or provide broker execution.</div>
+    <div class="toolrow">
+      <button class="btn active" data-interval="5">5m</button><button class="btn" data-interval="15">15m</button><button class="btn" data-interval="60">1H</button><button class="btn" data-interval="240">4H</button><button class="btn" data-interval="D">1D</button><button class="btn" data-interval="W">1W</button>
+      <button class="btn" id="addWatch">☆ Add to watchlist</button><button class="btn" id="screenerJump">Open screener ↓</button>
+    </div>
+    <div class="chart-shell" id="chartShell"><div id="chartMount" style="height:100%;width:100%"></div></div>
+    <div class="bottom-grid">
+      <section class="widget-panel" id="screenerPanel"><div class="panel-head"><span>Stock Screener</span><span class="tiny">TradingView widget</span></div><div class="widget-body" id="screenerMount"></div></section>
+      <section class="widget-panel"><div class="panel-head"><span>Market Overview</span><span class="tiny">Indices & markets</span></div><div class="widget-body" id="overviewMount"></div></section>
+    </div>
+  </main>
+  <aside class="rightbar">
+    <div class="section-title">Market Snapshot</div>
+    <div class="stat-grid">
+      <div class="stat"><label>Selected symbol</label><strong id="snapSymbol">NIFTY</strong></div>
+      <div class="stat"><label>Market</label><strong id="snapMarket">India</strong></div>
+      <div class="stat"><label>Chart interval</label><strong id="snapInterval">5m</strong></div>
+      <div class="stat"><label>Platform</label><strong class="green">Connected UI</strong></div>
+    </div>
+    <div class="section-title" style="margin-top:20px">Price Alert Builder</div>
+    <div class="alert-card"><h4>Browser-only demo alerts</h4><p>Creates an alert in this open page only. It does not run in the background or send Telegram notifications.</p></div>
+    <div class="form-row"><select id="alertCondition"><option value="above">Price crosses above</option><option value="below">Price crosses below</option></select></div>
+    <div class="form-row"><input id="alertPrice" type="number" step="any" placeholder="Enter target price"></div>
+    <div class="form-row"><button class="btn primary" style="width:100%" id="createAlert">Create demo alert</button></div>
+    <div id="alertList"></div>
+    <div class="section-title" style="margin-top:20px">Next upgrade</div>
+    <div class="alert-card"><h4>Backend + alerts</h4><p>For persistent alerts, Telegram delivery, custom calculated indicators and broker integration, a backend/data API is needed.</p></div>
+  </aside>
+</div>
+<footer class="foot"><span>© MK TradingView Pro · Independent project, not affiliated with TradingView.</span><span>Free hosting: GitHub Pages · Chart widgets: TradingView</span></footer>
 <script>
-const symbols=[
- {s:'OANDA:XAUUSD',n:'Gold Spot (XAUUSD)',c:'mcx',d:'Gold spot / USD',t:'FOREX'},
- {s:'NSE:NIFTY',n:'NIFTY 50',c:'indices',d:'India index',t:'NSE'},
- {s:'NSE:BANKNIFTY',n:'NIFTY BANK',c:'indices',d:'Banking index',t:'NSE'},
- {s:'BSE:SENSEX',n:'SENSEX',c:'indices',d:'India index',t:'BSE'},
- {s:'NSE:RELIANCE',n:'Reliance Industries',c:'stocks',d:'Energy / Retail',t:'NSE'},
- {s:'NSE:HDFCBANK',n:'HDFC Bank',c:'stocks',d:'Banking',t:'NSE'},
- {s:'NSE:ICICIBANK',n:'ICICI Bank',c:'stocks',d:'Banking',t:'NSE'},
- {s:'NSE:SBIN',n:'State Bank of India',c:'stocks',d:'Banking',t:'NSE'},
- {s:'NSE:INFY',n:'Infosys',c:'stocks',d:'IT Services',t:'NSE'},
- {s:'NSE:TCS',n:'TCS',c:'stocks',d:'IT Services',t:'NSE'},
- {s:'NSE:BHARTIARTL',n:'Bharti Airtel',c:'stocks',d:'Telecom',t:'NSE'},
- {s:'NSE:ITC',n:'ITC',c:'stocks',d:'Consumer goods',t:'NSE'},
- {s:'NSE:LT',n:'Larsen & Toubro',c:'stocks',d:'Engineering',t:'NSE'},
- {s:'NSE:AXISBANK',n:'Axis Bank',c:'stocks',d:'Banking',t:'NSE'},
- {s:'NSE:KOTAKBANK',n:'Kotak Mahindra Bank',c:'stocks',d:'Banking',t:'NSE'},
- {s:'NSE:MARUTI',n:'Maruti Suzuki',c:'stocks',d:'Automobiles',t:'NSE'},
- {s:'NSE:TATAMOTORS',n:'Tata Motors',c:'stocks',d:'Automobiles',t:'NSE'},
- {s:'NSE:TATASTEEL',n:'Tata Steel',c:'stocks',d:'Metals',t:'NSE'},
- {s:'NSE:JSWSTEEL',n:'JSW Steel',c:'stocks',d:'Metals',t:'NSE'},
- {s:'NSE:HINDALCO',n:'Hindalco',c:'stocks',d:'Metals',t:'NSE'},
- {s:'NSE:ONGC',n:'ONGC',c:'stocks',d:'Energy',t:'NSE'},
- {s:'NSE:NTPC',n:'NTPC',c:'stocks',d:'Power',t:'NSE'},
- {s:'NSE:POWERGRID',n:'Power Grid',c:'stocks',d:'Power',t:'NSE'},
- {s:'NSE:SUNPHARMA',n:'Sun Pharma',c:'stocks',d:'Pharma',t:'NSE'},
- {s:'NSE:ADANIENT',n:'Adani Enterprises',c:'stocks',d:'Conglomerate',t:'NSE'},
- {s:'NSE:ADANIPORTS',n:'Adani Ports',c:'stocks',d:'Ports',t:'NSE'},
- {s:'NSE:BAJFINANCE',n:'Bajaj Finance',c:'stocks',d:'Finance',t:'NSE'},
- {s:'NSE:WIPRO',n:'Wipro',c:'stocks',d:'IT Services',t:'NSE'},
- {s:'NSE:ULTRACEMCO',n:'UltraTech Cement',c:'stocks',d:'Cement',t:'NSE'},
- {s:'NSE:ASIANPAINT',n:'Asian Paints',c:'stocks',d:'Paints',t:'NSE'},
- {s:'NSE:COALINDIA',n:'Coal India',c:'stocks',d:'Mining',t:'NSE'},
- {s:'NSE:DRREDDY',n:'Dr Reddys Labs',c:'stocks',d:'Pharma',t:'NSE'},
- {s:'NSE:TECHM',n:'Tech Mahindra',c:'stocks',d:'IT Services',t:'NSE'},
- {s:'NSE:INDUSINDBK',n:'IndusInd Bank',c:'stocks',d:'Banking',t:'NSE'},
- {s:'NSE:GRASIM',n:'Grasim Industries',c:'stocks',d:'Materials',t:'NSE'},
- {s:'NSE:BAJAJFINSV',n:'Bajaj Finserv',c:'stocks',d:'Finance',t:'NSE'},
- {s:'NSE:ETERNAL',n:'Eternal',c:'stocks',d:'Consumer internet',t:'NSE'},
- {s:'NSE:ZOMATO',n:'Zomato (if listed under this ticker)',c:'stocks',d:'Verify ticker on TradingView',t:'NSE'},
- {s:'MCX:GOLD1!',n:'MCX Gold Futures',c:'mcx',d:'Gold continuous futures',t:'MCX'},
- {s:'MCX:SILVER1!',n:'MCX Silver Futures',c:'mcx',d:'Silver continuous futures',t:'MCX'},
- {s:'MCX:CRUDEOIL1!',n:'MCX Crude Oil Futures',c:'mcx',d:'Crude oil continuous futures',t:'MCX'},
- {s:'MCX:NATURALGAS1!',n:'MCX Natural Gas Futures',c:'mcx',d:'Natural gas continuous futures',t:'MCX'},
- {s:'MCX:COPPER1!',n:'MCX Copper Futures',c:'mcx',d:'Copper continuous futures',t:'MCX'},
- {s:'MCX:ALUMINIUM1!',n:'MCX Aluminium Futures',c:'mcx',d:'Aluminium continuous futures',t:'MCX'},
- {s:'MCX:ZINC1!',n:'MCX Zinc Futures',c:'mcx',d:'Zinc continuous futures',t:'MCX'},
- {s:'MCX:LEAD1!',n:'MCX Lead Futures',c:'mcx',d:'Lead continuous futures',t:'MCX'}
+const symbols = [
+ {name:"NIFTY 50",code:"NSE:NIFTY",market:"india",kind:"INDEX"},
+ {name:"NIFTY BANK",code:"NSE:BANKNIFTY",market:"india",kind:"INDEX"},
+ {name:"SENSEX",code:"BSE:SENSEX",market:"india",kind:"INDEX"},
+ {name:"FINNIFTY",code:"NSE:CNXFINANCE",market:"india",kind:"INDEX"},
+ {name:"RELIANCE",code:"NSE:RELIANCE",market:"india",kind:"STOCK"},
+ {name:"HDFC BANK",code:"NSE:HDFCBANK",market:"india",kind:"STOCK"},
+ {name:"ICICI BANK",code:"NSE:ICICIBANK",market:"india",kind:"STOCK"},
+ {name:"STATE BANK",code:"NSE:SBIN",market:"india",kind:"STOCK"},
+ {name:"INFOSYS",code:"NSE:INFY",market:"india",kind:"STOCK"},
+ {name:"TCS",code:"NSE:TCS",market:"india",kind:"STOCK"},
+ {name:"BHARTI AIRTEL",code:"NSE:BHARTIARTL",market:"india",kind:"STOCK"},
+ {name:"ITC",code:"NSE:ITC",market:"india",kind:"STOCK"},
+ {name:"LARSEN & TOUBRO",code:"NSE:LT",market:"india",kind:"STOCK"},
+ {name:"TATA MOTORS",code:"NSE:TATAMOTORS",market:"india",kind:"STOCK"},
+ {name:"TATA STEEL",code:"NSE:TATASTEEL",market:"india",kind:"STOCK"},
+ {name:"BAJFINANCE",code:"NSE:BAJFINANCE",market:"india",kind:"STOCK"},
+ {name:"ADANI PORTS",code:"NSE:ADANIPORTS",market:"india",kind:"STOCK"},
+ {name:"SUN PHARMA",code:"NSE:SUNPHARMA",market:"india",kind:"STOCK"},
+ {name:"MARUTI",code:"NSE:MARUTI",market:"india",kind:"STOCK"},
+ {name:"WIPRO",code:"NSE:WIPRO",market:"india",kind:"STOCK"},
+ {name:"GOLD FUTURES",code:"MCX:GOLD1!",market:"mcx",kind:"MCX"},
+ {name:"SILVER FUTURES",code:"MCX:SILVER1!",market:"mcx",kind:"MCX"},
+ {name:"CRUDE OIL",code:"MCX:CRUDEOIL1!",market:"mcx",kind:"MCX"},
+ {name:"NATURAL GAS",code:"MCX:NATURALGAS1!",market:"mcx",kind:"MCX"},
+ {name:"COPPER",code:"MCX:COPPER1!",market:"mcx",kind:"MCX"},
+ {name:"GOLD SPOT",code:"OANDA:XAUUSD",market:"forex",kind:"FOREX"},
+ {name:"EUR/USD",code:"OANDA:EURUSD",market:"forex",kind:"FOREX"},
+ {name:"GBP/USD",code:"OANDA:GBPUSD",market:"forex",kind:"FOREX"},
+ {name:"USD/JPY",code:"OANDA:USDJPY",market:"forex",kind:"FOREX"}
 ];
-const state={symbol:'OANDA:XAUUSD',name:'Gold Spot (XAUUSD)',interval:'5',category:'all',alerts:[]};
-function renderChart(){
- document.getElementById('chartTitle').textContent=state.symbol+' · '+state.interval;
- const c=document.getElementById('chartContainer');c.innerHTML='';
- const f=document.createElement('iframe');f.title='TradingView chart '+state.symbol;f.loading='lazy';f.referrerPolicy='no-referrer-when-downgrade';
- f.src='https://www.tradingview.com/widgetembed/?frameElementId=tv_chart&symbol='+encodeURIComponent(state.symbol)+'&interval='+encodeURIComponent(state.interval)+'&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=%230b1220&theme=dark&style=1&timezone=Asia%2FKolkata&withdateranges=1&hideideas=1&locale=en';
- c.appendChild(f);
+let selected = symbols[0], interval = "5", marketFilter = "all", watchOnly = false;
+let watch = new Set(["NSE:NIFTY","NSE:BANKNIFTY","BSE:SENSEX","NSE:RELIANCE","OANDA:XAUUSD","MCX:GOLD1!"]);
+const intervals = {"5":"5m","15":"15m","60":"1H","240":"4H","D":"1D","W":"1W"};
+function renderSymbols(){
+ const q=document.getElementById("symbolSearch").value.trim().toLowerCase();
+ const filtered=symbols.filter(s=>(marketFilter==="all"||s.market===marketFilter)&&(!watchOnly||watch.has(s.code))&&(!q||s.name.toLowerCase().includes(q)||s.code.toLowerCase().includes(q)));
+ document.getElementById("symbolList").innerHTML=filtered.map(s=>`<button class="symbol ${s.code===selected.code?'selected':''}" data-code="${s.code}"><span><span class="ticker">${s.name}</span><span class="sub">${s.code}</span></span><span class="kind">${s.kind}${watch.has(s.code)?' ★':''}</span></button>`).join("")||'<div class="tiny">No symbols found. Try a full TradingView code.</div>';
+ document.getElementById("watchCount").textContent=`(${watch.size})`;
+ document.querySelectorAll(".symbol").forEach(b=>b.addEventListener("click",()=>chooseSymbol(b.dataset.code)));
 }
-function selectSymbol(s,n){state.symbol=s;state.name=n;document.getElementById('selectedName').textContent=n;resetSignal();renderChart();window.scrollTo({top:0,behavior:'smooth'})}
-function setCategory(c,b){state.category=c;document.querySelectorAll('.toolbar .btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderWatchlist()}
-function renderWatchlist(){
- const q=(document.getElementById('search').value||'').toLowerCase();
- const list=symbols.filter(x=>(state.category==='all'||x.c===state.category)&&(x.s+' '+x.n+' '+x.d+' '+x.t).toLowerCase().includes(q));
- document.getElementById('count').textContent=list.length+' symbols';
- document.getElementById('watchlist').innerHTML=list.map(x=>'<div class="asset"><div><button onclick="selectSymbol('+JSON.stringify(x.s)+','+JSON.stringify(x.n)+')">'+escapeHtml(x.n)+'</button><span class="tag">'+escapeHtml(x.d)+'</span></div><span class="badge">'+escapeHtml(x.t)+'</span></div>').join('')||'<div class="small">No matching symbols. Try another search.</div>';
+function widgetScript(mountId, config){
+ const mount=document.getElementById(mountId); mount.innerHTML="";
+ const wrap=document.createElement("div"); wrap.className="tradingview-widget-container"; wrap.style.height="100%";
+ const inner=document.createElement("div"); inner.className="tradingview-widget-container__widget"; inner.style.height="100%"; wrap.appendChild(inner);
+ const script=document.createElement("script"); script.type="text/javascript"; script.src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js"; script.async=true; script.innerHTML=JSON.stringify(config);
+ wrap.appendChild(script); mount.appendChild(wrap);
 }
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function manualSignal(t){const time=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});state.alerts.unshift({t,n:state.name,time});const el=document.getElementById('signalValue');el.textContent=t+' · TEST ALERT';el.style.color=t==='BUY'?'var(--green)':'var(--red)';document.getElementById('signalNote').textContent='Manually triggered at '+time+'; not automatically calculated.';renderAlerts()}
-function resetSignal(){document.getElementById('signalValue').textContent='WAIT / NO SIGNAL';document.getElementById('signalValue').style.color='var(--yellow)';document.getElementById('signalNote').textContent='Automatic signals are not connected in this starter.'}
-function renderAlerts(){document.getElementById('alertLog').innerHTML=state.alerts.length?state.alerts.slice(0,12).map(a=>'<div class="alertrow"><div class="alerttitle" style="color:'+(a.t==='BUY'?'var(--green)':'var(--red)')+'">'+a.t+' · '+escapeHtml(a.n)+'</div><div class="alerttime">'+a.time+' · Manual test</div></div>').join(''):'<div class="small">No alerts yet.</div>'}
-function clearAlerts(){state.alerts=[];renderAlerts()}
-function addTradingViewWidget(id,scriptUrl,config){
- const root=document.getElementById(id);root.innerHTML='';
- const wrap=document.createElement('div');wrap.className='tradingview-widget-container';wrap.style.width='100%';
- const widget=document.createElement('div');widget.className='tradingview-widget-container__widget';wrap.appendChild(widget);
- const script=document.createElement('script');script.type='text/javascript';script.src=scriptUrl;script.async=true;script.text=JSON.stringify(config);wrap.appendChild(script);root.appendChild(wrap);
+function loadChart(){
+ document.getElementById("currentName").textContent=selected.name;
+ document.getElementById("currentCode").textContent=selected.code;
+ document.getElementById("snapSymbol").textContent=selected.code.split(":").pop();
+ document.getElementById("snapMarket").textContent=selected.market==="india"?"India":selected.market==="mcx"?"MCX":"Forex";
+ document.getElementById("snapInterval").textContent=intervals[interval];
+ widgetScript("chartMount",{
+  autosize:true,symbol:selected.code,interval:interval,timezone:"Asia/Kolkata",theme:"dark",style:"1",locale:"en",
+  withdateranges:true,hide_side_toolbar:false,allow_symbol_change:true,save_image:true,
+  details:true,hotlist:true,calendar:false,studies:["STD;EMA","STD;RSI","STD;MACD"],support_host:"https://www.tradingview.com"
+ });
+ renderSymbols();
 }
-addTradingViewWidget('stockScreener','https://s3.tradingview.com/external-embedding/embed-widget-screener.js',{
- width:'100%',height:550,defaultColumn:'overview',defaultScreen:'most_capitalized',market:'india',showToolbar:true,colorTheme:'dark',locale:'en',isTransparent:false
-});
-addTradingViewWidget('tickerTape','https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js',{
- symbols:[
-  {proName:'NSE:NIFTY',title:'NIFTY 50'},{proName:'NSE:BANKNIFTY',title:'NIFTY BANK'},
-  {proName:'NSE:RELIANCE',title:'RELIANCE'},{proName:'NSE:HDFCBANK',title:'HDFC BANK'},
-  {proName:'MCX:GOLD1!',title:'MCX GOLD'},{proName:'MCX:SILVER1!',title:'MCX SILVER'},
-  {proName:'MCX:CRUDEOIL1!',title:'MCX CRUDE OIL'},{proName:'MCX:NATURALGAS1!',title:'MCX NATURAL GAS'}
- ],showSymbolLogo:true,colorTheme:'dark',isTransparent:false,displayMode:'adaptive',locale:'en'
-});
-renderWatchlist();renderChart();
+function chooseSymbol(code){const found=symbols.find(s=>s.code===code);if(found){selected=found;loadChart();}}
+document.querySelectorAll("[data-market]").forEach(b=>b.addEventListener("click",()=>{marketFilter=b.dataset.market;document.querySelectorAll("[data-market]").forEach(x=>x.classList.toggle("active",x===b));renderSymbols()}));
+document.querySelectorAll("[data-interval]").forEach(b=>b.addEventListener("click",()=>{interval=b.dataset.interval;document.querySelectorAll("[data-interval]").forEach(x=>x.classList.toggle("active",x===b));loadChart()}));
+document.getElementById("symbolSearch").addEventListener("input",renderSymbols);
+function searchGo(){const q=document.getElementById("symbolSearch").value.trim().toLowerCase();const s=symbols.find(x=>x.name.toLowerCase()===q||x.code.toLowerCase()===q)||symbols.find(x=>x.name.toLowerCase().includes(q)||x.code.toLowerCase().includes(q));if(s)chooseSymbol(s.code);else if(q){selected={name:q.toUpperCase(),code:q.includes(":")?q.toUpperCase():"NSE:"+q.toUpperCase(),market:"india",kind:"CUSTOM"};loadChart();}}
+document.getElementById("searchBtn").addEventListener("click",searchGo);
+document.getElementById("symbolSearch").addEventListener("keydown",e=>{if(e.key==="Enter")searchGo()});
+document.getElementById("addWatch").addEventListener("click",()=>{if(watch.has(selected.code))watch.delete(selected.code);else watch.add(selected.code);document.getElementById("addWatch").textContent=watch.has(selected.code)?"★ In watchlist":"☆ Add to watchlist";renderSymbols()});
+document.getElementById("watchToggle").addEventListener("click",e=>{watchOnly=!watchOnly;e.currentTarget.classList.toggle("active",watchOnly);renderSymbols()});
+document.getElementById("fullscreenBtn").addEventListener("click",()=>{const el=document.getElementById("chartShell");if(el.requestFullscreen)el.requestFullscreen();});
+document.getElementById("screenerJump").addEventListener("click",()=>document.getElementById("screenerPanel").scrollIntoView({behavior:"smooth"}));
+function mountSimpleWidget(mountId, scriptName, config){const mount=document.getElementById(mountId);mount.innerHTML="";const wrap=document.createElement("div");wrap.className="tradingview-widget-container";wrap.style.height="100%";const inner=document.createElement("div");inner.className="tradingview-widget-container__widget";inner.style.height="100%";wrap.appendChild(inner);const script=document.createElement("script");script.type="text/javascript";script.src="https://s3.tradingview.com/external-embedding/embed-widget-"+scriptName+".js";script.async=true;script.innerHTML=JSON.stringify(config);wrap.appendChild(script);mount.appendChild(wrap);}
+function loadScreener(){mountSimpleWidget("screenerMount","screener",{width:"100%",height:"100%",defaultColumn:"overview",defaultScreen:"general",market:"india",showToolbar:true,colorTheme:"dark",isTransparent:true,locale:"en"});}
+function loadOverview(){mountSimpleWidget("overviewMount","market-overview",{colorTheme:"dark",dateRange:"12M",showChart:true,locale:"en",width:"100%",height:"100%",isTransparent:true,showSymbolLogo:true,tabs:[{title:"Indices",symbols:[{s:"NSE:NIFTY",d:"NIFTY 50"},{s:"NSE:BANKNIFTY",d:"NIFTY BANK"},{s:"BSE:SENSEX",d:"SENSEX"}]},{title:"Stocks",symbols:[{s:"NSE:RELIANCE",d:"RELIANCE"},{s:"NSE:HDFCBANK",d:"HDFC BANK"},{s:"NSE:INFY",d:"INFOSYS"}]},{title:"Gold & FX",symbols:[{s:"OANDA:XAUUSD",d:"GOLD SPOT"},{s:"OANDA:EURUSD",d:"EUR/USD"}]}]});}
+document.getElementById("createAlert").addEventListener("click",()=>{const p=parseFloat(document.getElementById("alertPrice").value);if(!Number.isFinite(p)){alert("Please enter a valid target price.");return;}const cond=document.getElementById("alertCondition").value;const card=document.createElement("div");card.className="alert-card";card.innerHTML=`<h4>${selected.name}: ${cond==="above"?"Crosses above":"Crosses below"} ${p}</h4><p>Demo alert created in this browser page. No live trigger is connected.</p>`;document.getElementById("alertList").prepend(card);document.getElementById("alertPrice").value="";});
+loadChart();loadScreener();loadOverview();
 </script>
-</body></html>
+</body>
+</html>
