@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<title>MK TradingView Pro | Free Trading Dashboard</title>
+<style>
+:root{--bg:#080d18;--panel:#101827;--panel2:#151f31;--line:#26344a;--text:#e8eef8;--muted:#91a0b8;--green:#20c997;--red:#ff647c;--blue:#70a7ff;--yellow:#f5c451}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 Inter,Segoe UI,Arial,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 22px;border-bottom:1px solid var(--line);background:#0b1220;position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:11px;font-size:18px;font-weight:800;letter-spacing:.2px}.logo{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#20c997,#2878ff);color:#07111d;font-weight:900}
+.small{color:var(--muted);font-size:12px}.status{border:1px solid #235f51;color:#75e4c0;background:#102a29;padding:5px 9px;border-radius:20px;font-size:11px;white-space:nowrap}
+main{max-width:1500px;margin:auto;padding:20px}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:18px}.hero h1{margin:0 0 5px;font-size:25px}.hero p{margin:0;color:var(--muted)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.btn,select{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:9px 12px;border-radius:8px;cursor:pointer;font:inherit}.btn:hover,select:hover{border-color:var(--blue)}.btn.active{background:#173b48;border-color:#20c997;color:#b9ffe9}.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:13px;overflow:hidden}.cardhead{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid var(--line)}.cardhead h2{font-size:14px;margin:0}.chart{height:610px;background:#0b1220}.chart iframe{width:100%;height:100%;border:0}.side{display:flex;flex-direction:column;gap:16px}.pad{padding:15px}.asset{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #202c3e;gap:8px}.asset:last-child{border-bottom:0}.asset button{background:transparent;border:0;color:var(--text);cursor:pointer;text-align:left;font-weight:700;padding:0}.tag{font-size:11px;color:var(--muted);display:block;font-weight:400}.signalbox{border:1px dashed #34445e;border-radius:10px;padding:13px;background:#0b1423}.signal{font-size:19px;font-weight:800;margin:2px 0 6px}.signal.wait{color:var(--yellow)}.signal.buy{color:var(--green)}.signal.sell{color:var(--red)}.signalnote{color:var(--muted);font-size:12px}.signal-actions{display:flex;gap:8px;margin-top:12px}.signal-actions button{flex:1}.buy{background:#123d35;border-color:#1c8b70}.sell{background:#401c2a;border-color:#a43d57}.clear{background:transparent}.alertrow{padding:10px 0;border-bottom:1px solid #202c3e}.alertrow:last-child{border:0}.alerttitle{font-weight:700}.alerttime{font-size:11px;color:var(--muted)}.disclaimer{margin-top:16px;padding:13px 15px;border-radius:10px;background:#211d12;border:1px solid #5c4b24;color:#e7d49a;font-size:12px}
+footer{padding:20px;text-align:center;color:var(--muted);font-size:12px}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.chart{height:520px}}
+@media(max-width:650px){header{padding:12px 14px}main{padding:13px}.hero{display:block}.hero h1{font-size:22px}.side{display:flex}.chart{height:440px}.hide-mobile{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">MK</div><div>MK TradingView Pro<div class="small">Free market dashboard</div></div></div>
+  <div class="status">● CHART WIDGET</div>
+</header>
+<main>
+  <section class="hero">
+    <div><h1>Trading Dashboard</h1><p>Gold + Indian indices · Embedded TradingView chart</p></div>
+    <div class="small">Starter version · No broker connection</div>
+  </section>
+  <div class="toolbar" aria-label="Market selection">
+    <button class="btn active" data-group="all" onclick="setGroup('all',this)">All markets</button>
+    <button class="btn" data-group="gold" onclick="setGroup('gold',this)">Gold / Forex</button>
+    <button class="btn" data-group="india" onclick="setGroup('india',this)">Indian indices</button>
+    <label class="small" for="interval" style="align-self:center;margin-left:6px">Timeframe</label>
+    <select id="interval" onchange="changeInterval(this.value)">
+      <option value="1">1 minute</option><option value="5" selected>5 minutes</option><option value="15">15 minutes</option><option value="30">30 minutes</option><option value="60">1 hour</option><option value="240">4 hours</option><option value="D">1 day</option>
+    </select>
+  </div>
+  <div class="layout">
+    <section class="card">
+      <div class="cardhead"><h2 id="chartTitle">OANDA:XAUUSD · 5 minute</h2><span class="small">Chart supplied by TradingView</span></div>
+      <div class="chart" id="chartContainer"></div>
+    </section>
+    <aside class="side">
+      <section class="card">
+        <div class="cardhead"><h2>Watchlist</h2><span class="small">Choose chart</span></div>
+        <div class="pad" id="watchlist">
+          <div class="asset" data-group="gold"><div><button onclick="selectSymbol('OANDA:XAUUSD','Gold (XAUUSD)')">Gold (XAUUSD)</button><span class="tag">Gold / USD</span></div><span class="small">FOREX</span></div>
+          <div class="asset" data-group="gold"><div><button onclick="selectSymbol('FX:EURUSD','EUR/USD')">EUR/USD</button><span class="tag">Euro / US Dollar</span></div><span class="small">FOREX</span></div>
+          <div class="asset" data-group="india"><div><button onclick="selectSymbol('NSE:NIFTY','NIFTY 50')">NIFTY 50</button><span class="tag">India index</span></div><span class="small">NSE</span></div>
+          <div class="asset" data-group="india"><div><button onclick="selectSymbol('NSE:BANKNIFTY','NIFTY BANK')">NIFTY BANK</button><span class="tag">India banking index</span></div><span class="small">NSE</span></div>
+          <div class="asset" data-group="india"><div><button onclick="selectSymbol('BSE:SENSEX','SENSEX')">SENSEX</button><span class="tag">India index</span></div><span class="small">BSE</span></div>
+        </div>
+      </section>
+      <section class="card">
+        <div class="cardhead"><h2>Signal panel</h2><span class="small">Manual demo</span></div>
+        <div class="pad">
+          <div class="signalbox">
+            <div class="small">Selected symbol</div><strong id="selectedName">Gold (XAUUSD)</strong>
+            <div id="signalValue" class="signal wait">WAIT / NO SIGNAL</div>
+            <div class="signalnote" id="signalNote">This starter does not read chart candles or generate automatic trading signals.</div>
+            <div class="signal-actions">
+              <button class="btn buy" onclick="manualSignal('BUY')">Test BUY</button>
+              <button class="btn sell" onclick="manualSignal('SELL')">Test SELL</button>
+            </div>
+          </div>
+          <p class="small">The test buttons only demonstrate the on-site alert panel. They are not trading recommendations.</p>
+          <button class="btn clear" onclick="clearSignal()">Clear signal</button>
+        </div>
+      </section>
+      <section class="card">
+        <div class="cardhead"><h2>Website alert log</h2><button class="btn" style="padding:5px 8px" onclick="clearAlerts()">Clear</button></div>
+        <div class="pad" id="alertLog"><div class="small">No alerts yet. Use Test BUY / Test SELL to preview the interface.</div></div>
+      </section>
+    </aside>
+  </div>
+  <div class="disclaimer"><strong>Important:</strong> This is a starter dashboard, not a fully automated signal engine. TradingView's embedded chart runs separately; this page cannot read its candles or run your custom Pine Script inside the widget. Market data availability and delays depend on TradingView and the exchange. Verify symbols and data before relying on them. Not financial advice.</div>
+</main>
+<footer>MK TradingView Pro · Free starter template · TradingView chart attribution remains enabled.</footer>
+<script>
+const state={symbol:'OANDA:XAUUSD',name:'Gold (XAUUSD)',interval:'5',group:'all',alerts:[]};
+function renderChart(){
+  const container=document.getElementById('chartContainer');
+  document.getElementById('chartTitle').textContent=state.symbol+' · '+labelInterval(state.interval);
+  container.innerHTML='';
+  const iframe=document.createElement('iframe');
+  iframe.title='TradingView chart for '+state.symbol;
+  iframe.loading='lazy';
+  iframe.referrerPolicy='no-referrer-when-downgrade';
+  iframe.src='https://www.tradingview.com/widgetembed/?frameElementId=tv_chart&symbol='+encodeURIComponent(state.symbol)+'&interval='+encodeURIComponent(state.interval)+'&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=%230b1220&studies=%5B%5D&theme=dark&style=1&timezone=Asia%2FKolkata&withdateranges=1&hideideas=1&locale=en';
+  container.appendChild(iframe);
+}
+function labelInterval(v){return ({'1':'1 minute','5':'5 minute','15':'15 minute','30':'30 minute','60':'1 hour','240':'4 hours','D':'1 day'})[v]||v}
+function selectSymbol(symbol,name){state.symbol=symbol;state.name=name;document.getElementById('selectedName').textContent=name;clearSignal(false);renderChart()}
+function changeInterval(v){state.interval=v;renderChart()}
+function setGroup(group,button){state.group=group;document.querySelectorAll('[data-group].btn').forEach(b=>b.classList.remove('active'));button.classList.add('active');document.querySelectorAll('#watchlist .asset').forEach(row=>{row.style.display=(group==='all'||row.dataset.group===group)?'flex':'none'})}
+function manualSignal(type){
+  const time=new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  state.alerts.unshift({type,name:state.name,time});
+  document.getElementById('signalValue').textContent=type+' · TEST ALERT';
+  document.getElementById('signalValue').className='signal '+type.toLowerCase();
+  document.getElementById('signalNote').textContent='Manually triggered at '+time+'. This is a UI test, not an automatically calculated signal.';
+  renderAlerts();
+  if('Notification' in window && Notification.permission==='granted'){new Notification('MK TradingView Pro — '+type,{body:state.name+' · manual test alert'})}
+}
+function renderAlerts(){const box=document.getElementById('alertLog');if(!state.alerts.length){box.innerHTML='<div class="small">No alerts yet.</div>';return}box.innerHTML=state.alerts.slice(0,10).map(a=>'<div class="alertrow"><div class="alerttitle" style="color:'+(a.type==='BUY'?'var(--green)':'var(--red)')+'">'+a.type+' · '+escapeHtml(a.name)+'</div><div class="alerttime">'+a.time+' · Manual test</div></div>').join('')}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function clearSignal(reset=true){document.getElementById('signalValue').textContent='WAIT / NO SIGNAL';document.getElementById('signalValue').className='signal wait';document.getElementById('signalNote').textContent='This starter does not read chart candles or generate automatic trading signals.';if(reset){}}
+function clearAlerts(){state.alerts=[];renderAlerts()}
+renderChart();
+</script>
+</body>
+</html>
